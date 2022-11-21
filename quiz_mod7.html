@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>title</title>
+
+		<style>
+			
+			.red_letters{
+				color:red;
+			}
+
+			.green_letters{
+				color:green;
+			}
+
+			.hide{
+				display: none;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div id="quiz"></div>
+				
+                <button id="start">Start quiz</button>
+                <div id="showquestions"></div>
+                <button id="submit">Submit quiz</button>
+                <div id="results"></div>
+  <script>
+  	
+
+  	contenedor_preguntas = document.querySelector("#quiz")
+  	mostar_preguntas = document.querySelector("#showquestions")
+  	radio_inputs=[];
+  	div_correct_list=[];
+
+  	let array_preguntas_mostrar = []
+  	let contador_correctas=0
+
+  	let var_buttons="";
+
+  	let myQuestions = [
+	{
+		question: "What is 10/2?",
+		answers: {
+			a: '3',
+			b: '5',
+			c: '115'
+		},
+		correctAnswer: 'b'
+	},
+	{
+		question: "What is 30/3?",
+		answers: {
+			a: '3',
+			b: '5',
+			c: '10'
+		},
+		correctAnswer: 'c'
+	},{
+		question: "What is 15/3?",
+		answers: {
+			a: '7',
+			b: '5',
+			c: '12'
+		},
+		correctAnswer: 'b'
+	}
+];
+
+ 
+	//for (let i=0; i<myQuestions.length; i++){
+		
+		//array_preguntas_mostrar[i]=myQuestions[i].question
+
+	//}
+
+start_button= document.querySelector("#start")
+submit_button= document.querySelector("#submit")
+
+start_button.addEventListener("click", function iniciarQuiz(iniciarQuiz){
+
+	for (i=0; i<myQuestions.length; i++){
+	
+		var_buttons+=myQuestions[i].question
+		var_buttons+="<div id=pregunta"+ i +">"
+
+		for (option in myQuestions[i].answers){ //para cade letra en myQuestionsi].answers
+			
+			//console.log(myQuestions[i].answers[option]) //?????? me da letra
+			console.log(option + myQuestions[i].answers[option])
+
+
+			var_buttons+='<input type="radio" name="question'+i+'" value="'+option+'">'
+			+option+ ':'
+			+myQuestions[i].answers[option]
+
+		}
+		var_buttons+= "</div>"
+		array_preguntas_mostrar[i]=var_buttons
+		showquestions.innerHTML+=array_preguntas_mostrar[i] 
+		var_buttons=""
+	}
+
+}) 
+
+
+
+
+submit_button.addEventListener("click", function enviarQuiz(){
+
+//radio_input=document.querySelector('input[name="question0"]:checked').value;
+//console.log(radio_input)
+
+for (var i = 0; i < myQuestions.length; i++) {
+
+	radio_inputs[i]=document.querySelector('input[name="question'+i+'"]:checked').value;
+}
+
+console.log(radio_inputs)
+
+
+	for (i=0; i<myQuestions.length; i++) {
+
+		div_correct_list[i]=document.querySelector("#pregunta"+i);
+		
+		if (radio_inputs[i] == myQuestions[i].correctAnswer){
+
+			div_correct_list[i].classList.remove("red_letters")
+			div_correct_list[i].classList.add("green_letters")
+			
+			contador_correctas+=1
+		}
+		else
+			div_correct_list[i].classList.remove("green_letters")
+			div_correct_list[i].classList.add("red_letters")
+			
+	}
+
+	resultado = document.querySelector("#results")
+	resultado.innerHTML= contador_correctas + " correcta(s) de "
+	+ myQuestions.length
+
+	start_button.classList.add("hide")
+	contador_correctas=0;
+
+
+})
+
+  </script>
+
+	</body>
+</html>

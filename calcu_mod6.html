@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="main">
+        <header>
+          <input
+            type="text"
+            disabled
+            id="output"
+            value="0"
+          />
+        </header>
+        <footer>
+          <div>
+            <button
+              data-type="operacion"
+              type="reset"
+              value="clear"
+            >
+              AC
+            </button>
+            <button data-type="operacion" value="invert">
+              +/-
+            </button>
+            <button data-type="operacion" value="%">
+              %
+            </button>
+            <button data-type="operacion" value="/">
+              ÷
+            </button>
+          </div>
+          <div>
+            <button
+              data-type="number"
+              value="7"
+              id="7"
+            >
+              7
+            </button>
+            <button data-type="number" value="8">
+              8
+            </button>
+            <button data-type="number" value="9">
+              9
+            </button>
+            <button data-type="operacion" value="*">
+              x
+            </button>
+          </div>
+          <div>
+            <button data-type="number" value="4">
+              4
+            </button>
+            <button data-type="number" value="5">
+              5
+            </button>
+            <button data-type="number" value="6">
+              6
+            </button>
+            <button data-type="operacion" value="-">
+              -
+            </button>
+          </div>
+          <div>
+            <button data-type="number" value="1">
+              1
+            </button>
+            <button data-type="number" value="2">
+              2
+            </button>
+            <button data-type="number" value="3">
+              3
+            </button>
+            <button data-type="operacion" value="+">
+              +
+            </button>
+          </div>
+          <div>
+            <button
+              data-type="number"
+              value="0"
+            >
+              0
+            </button>
+            <button data-type="number" value=".">
+              .
+            </button>
+            <button value="=" data-type="operacion">
+              =
+            </button>
+          </div>
+        </footer>
+    </main>
+
+    <script>
+
+        const display =  document.querySelector("input[type=text]")
+        console.log(display)
+        const digits = document.querySelectorAll('button[data-type=number]')
+        console.log(digits)
+        const operation = document.querySelectorAll('button[data-type=operacion]')
+        let globalcount=0
+
+        let displaying_number="";
+        
+        let ObjectStates = {
+          preCat : true,
+          EqualSign : false,
+          operationSing: true
+        }
+
+        //agarrando numeros
+
+
+        digits.forEach(function(number){
+
+          total = 0;
+
+
+          number.addEventListener("click", function(event){
+
+          const given_number = (event.target.value)
+
+          console.log(ObjectStates.initOperation)
+
+          if (ObjectStates.preCat==true){
+            
+            display.value=given_number
+            displaying_number=display.value
+            ObjectStates.preCat=false
+
+          }
+
+          else if (ObjectStates.preCat==false){
+      
+              displaying_number=display.value + given_number
+              display.value=displaying_number
+        
+          }
+
+          })
+
+        })
+
+        //agarrando operacion
+
+        operation.forEach(function(operador){
+
+          operador.addEventListener("click", function(event){
+
+    
+            if (event.target.value =="+" && ObjectStates.operationSing==true) {
+               
+               num1=parseFloat(display.value)
+               flag_operacion ="+" 
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = true
+               operationSing==false
+
+            }
+
+            else if (event.target.value =="-" && ObjectStates.operationSing==true ) {
+               
+               num1=parseFloat(display.value)
+               flag_operacion ="-" 
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = true
+               operationSing==false
+
+            }
+
+            else if (event.target.value =="*" && ObjectStates.operationSing==true) {
+               
+               num1=parseFloat(display.value)
+               flag_operacion ="*" 
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = true
+               operationSing==false
+
+            }
+
+            else if (event.target.value =="/" && ObjectStates.operationSing==true) {
+               
+               num1=parseFloat(display.value)
+               flag_operacion ="/" 
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = true
+               operationSing==false
+
+            }
+
+            else if (event.target.value =="%" && ObjectStates.operationSing==true) {
+               
+               num1=parseFloat(display.value)
+               flag_operacion ="%" 
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = true
+               operationSing==false
+
+            }
+
+            else if (event.target.value =="invert" && ObjectStates.operationSing==true) {
+               
+               num1=parseFloat(display.value)
+               flag_operacion ="invert" 
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = true
+               operationSing==false
+
+            }
+
+            else if (event.target.value =="clear") {
+                
+               ObjectStates.preCat=true
+               ObjectStates.EqualSign = false
+               ObjectStates.operationSing=true
+               display.value = 0
+            }
+
+             if (event.target.value =="=" && ObjectStates.EqualSign == true) {
+
+              ObjectStates.preCat=true
+
+              if (flag_operacion=="+"){
+                globalcount = num1 + parseFloat(display.value)
+                display.value = globalcount
+                ObjectStates.operationSing==true
+                ObjectStates.EqualSign=false
+
+              }
+
+              else if (flag_operacion=="-"){
+                globalcount = num1 - parseFloat(display.value)
+                display.value = globalcount
+                ObjectStates.operationSing==true
+                ObjectStates.EqualSign=false
+
+              }
+
+              else if (flag_operacion=="*"){
+                globalcount = num1 * parseFloat(display.value)
+                display.value = globalcount
+                ObjectStates.operationSing==true
+                ObjectStates.EqualSign=false
+
+              }
+
+              else if (flag_operacion=="/"){
+                globalcount = num1 / parseFloat(display.value)
+                display.value = globalcount
+                ObjectStates.operationSing==true
+                ObjectStates.EqualSign=false
+
+              }
+
+                else if (flag_operacion=="%"){
+                globalcount = num1 % parseFloat(display.value)
+                display.value = globalcount
+                ObjectStates.operationSing==true
+                ObjectStates.EqualSign=false
+
+              }
+
+              else if (flag_operacion=="invert"){
+                globalcount = parseFloat(display.value)*-1
+                display.value = globalcount
+                ObjectStates.operationSing==true
+                ObjectStates.EqualSign=false
+
+              }
+
+
+            }
+
+        
+
+          })
+
+
+        })
+
+    </script> 
+  </body>
+</html>

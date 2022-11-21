@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		
+		/*num=prompt("Digite numero 1")
+		signo=prompt("Digite el tipo de operacion: +-/*")*/
+		running=true
+		continuar="y"
+
+		let calculadora_utilizar = function() {
+
+			let total=0
+
+			const operacion = function(num, signo){
+
+				if (total=='Ha digitado una operacion invalida'){
+					total=0
+				}
+
+				switch(signo) {
+ 				case '+':
+ 				total = total + num
+ 				  break;
+ 				case '-':
+ 				total = total - num
+ 				  break;
+ 				case '*':
+ 				total = total * num
+ 				  break;
+ 				case '/':
+ 				total = total / num
+ 				  break;
+ 				default:
+ 				total = 'Ha digitado una operacion invalida';
+			}
+			return total
+		}
+		return operacion
+	}
+
+		let llamar_calculadora = calculadora_utilizar()
+
+		while (running){
+
+			signo=prompt("Digite el tipo de operacion: +-/*")
+			num=prompt("Digite numero")
+			num=parseInt(num, 10)
+
+			
+			let resultado =llamar_calculadora(num, signo)
+
+			window.alert(resultado)
+
+			if (isNaN(resultado)){
+				window.alert("Ha ingresado un valor no numerico u operacion no permitida, ingrese solo valores numericos y/o operacion permitidas +-*/")
+				    resultado=0
+			}else{
+				window.alert(resultado)
+			}
+	
+
+			continuar=prompt("Desea volver a ingresa un numero n/y")
+
+
+			if (continuar=="n" || continuar=="N"){
+				running=false
+			}
+		}
+
+	</script>
+	
+</body>
+</html>
